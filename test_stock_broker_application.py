@@ -12,18 +12,17 @@ class TestStockBrokerApp(TestCase):
         self.app = StockBrokerApplication()
 
     def test_select_stock_broker(self):
-        mk = Mock(spec=stock_driver)
-        app = StockBrokerApplication()
-        app.select_stock_broker(mk)
-        self.assertIs(app.get_broker(), mk)
+        mk = Mock(spec=StockDriver)
+        self.app.select_stock_broker(mk)
+        self.assertIs(self.app.get_broker(), mk)
 
-        kiwer_driver = stock_driver.KiwerDriver()
-        app.select_stock_broker(kiwer_driver)
-        self.assertIs(app.get_broker(), kiwer_driver)
+        kiwer_driver = KiwerDriver()
+        self.app.select_stock_broker(kiwer_driver)
+        self.assertIs(self.app.get_broker(), kiwer_driver)
 
-        nemo_driver = stock_driver.NemoDriver()
-        app.select_stock_broker(nemo_driver)
-        self.assertIs(app.get_broker(), nemo_driver)
+        nemo_driver = NemoDriver()
+        self.app.select_stock_broker(nemo_driver)
+        self.assertIs(self.app.get_broker(), nemo_driver)
 
     @patch("sys.stdout", new_callable=io.StringIO)
     def test_login(self, mock_stdout):
@@ -45,20 +44,18 @@ class TestStockBrokerApp(TestCase):
 
     def test_get_price_for_Kiwier(self):
         mk = Mock()
-        st = StockBrokerApplication()
-        st.select_stock_broker(mk) # KiwerDriver()
+        self.app.select_stock_broker(mk) # KiwerDriver()
         mk.get_price.return_value = 8888
         #seed(99)
-        self.assertEqual(8888, st.get_price(1))
+        self.assertEqual(8888, self.app.get_price(1))
 
 
     def test_get_price_for_Nemo(self):
         mk = Mock()
-        st = StockBrokerApplication()
-        st.select_stock_broker(mk)  # NemoDriver()
+        self.app.select_stock_broker(mk)  # NemoDriver()
         mk.get_price.return_value = 8888
         #seed(99)
-        self.assertEqual(8888, st.get_price(1))
+        self.assertEqual(8888, self.app.get_price(1))
 
     def test_buy_nice_timing_ok(self):
         self.mk = Mock(repr=KiwerDriver)
