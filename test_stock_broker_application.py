@@ -3,6 +3,7 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from stock_broker_application import StockBrokerApplication
+from stock_driver import StockDriver
 
 
 class TestStockBrokerApp(TestCase):
@@ -18,7 +19,7 @@ class TestStockBrokerApp(TestCase):
         def print_login(id, pw):
             print(f"{id} login success")
 
-        driver: StockBrokerApplication = Mock()
+        driver: StockDriver = Mock()
         driver.login.side_effect = print_login
 
         self.__broker.select_stock_broker(driver)
