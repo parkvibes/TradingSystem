@@ -9,7 +9,7 @@ from stock_driver import StockDriver
 class TestStockBrokerApp(TestCase):
     def setUp(self):
         super().setUp()
-        self.__broker = StockBrokerApplication()
+        self.app = StockBrokerApplication()
 
     def test_select_stock_broker(self):
         pass
@@ -22,8 +22,8 @@ class TestStockBrokerApp(TestCase):
         driver: StockDriver = Mock()
         driver.login.side_effect = print_login
 
-        self.__broker.select_stock_broker(driver)
-        self.__broker.login("no name", "no password")
+        self.app.select_stock_broker(driver)
+        self.app.login("no name", "no password")
         self.assertEqual(mock_stdout.getvalue(), "no name login success\n")
 
     def test_buy(self):
