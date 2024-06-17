@@ -1,11 +1,11 @@
 import io
 from unittest import TestCase
 from unittest.mock import Mock, patch
-from stock_broker_application import StockBrokerApplication
-from stock_driver import StockDriver
 
 import stock_driver
 from stock_broker_application import StockBrokerApplication
+from stock_driver import StockDriver, KiwerDriver
+
 
 class TestStockBrokerApp(TestCase):
     def setUp(self):
@@ -47,7 +47,7 @@ class TestStockBrokerApp(TestCase):
     def test_get_price(self):
         pass
 
-    def test_buy_nice_timing_ok(self):      
+    def test_buy_nice_timing_ok(self):
         self.mk = Mock(repr=KiwerDriver)
         self.app.select_stock_broker(self.mk)
         self.mk.get_price.side_effect = [100, 100]
@@ -57,7 +57,7 @@ class TestStockBrokerApp(TestCase):
         self.assertEqual(self.mk.get_price.call_count, 2)
         self.assertEqual(ret, 1000 // 100)
 
-    def test_buy_nice_timing_not_ok(self):    
+    def test_buy_nice_timing_not_ok(self):
         self.mk = Mock(repr=KiwerDriver)
         self.app.select_stock_broker(self.mk)
         self.mk.get_price.side_effect = [100, 99]
@@ -66,7 +66,6 @@ class TestStockBrokerApp(TestCase):
 
         self.assertEqual(self.mk.get_price.call_count, 2)
         self.assertEqual(ret, 0)
-
 
     def test_sell_nice_timing(self):
         pass
