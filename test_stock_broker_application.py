@@ -12,6 +12,14 @@ class TestStockBrokerApp(TestCase):
         app.select_stock_broker(mk)
         self.assertIs(app.get_broker(), mk)
 
+        kiwer_driver = stock_driver.KiwerDriver()
+        app.select_stock_broker(kiwer_driver)
+        self.assertIs(app.get_broker(), kiwer_driver)
+
+        nemo_driver = stock_driver.NemoDriver()
+        app.select_stock_broker(nemo_driver)
+        self.assertIs(app.get_broker(), nemo_driver)
+
     def test_login(self):
         pass
 
