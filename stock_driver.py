@@ -37,8 +37,8 @@ class KiwerDriver(StockDriver):
     def sell(self, code, price, cnt):
         self.__api.sell(code, price, cnt)
 
-    def get_price(self, code):
-        self.__api.current_price(code)
+    def get_price(self, code) -> int:
+        return self.__api.current_price(code)
 
 
 class NemoDriver(StockDriver):
@@ -55,5 +55,5 @@ class NemoDriver(StockDriver):
     def sell(self, code, price, cnt):
         self.__api.selling_stock(code, price, cnt)
 
-    def get_price(self, code):
-        self.__api.get_market_price(code, 1)
+    def get_price(self, code) -> int:
+        return self.__api.get_market_price(code, 1)
