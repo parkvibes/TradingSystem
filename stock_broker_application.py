@@ -28,7 +28,7 @@ class StockBrokerApplication:
 
     def get_price(self,
                   stock_code: int) -> int:
-        return self.__stock_broker.current_stock_price(stock_code)
+        return self.__stock_broker.get_price(stock_code)
 
     def buy_nice_timing(self):
         pass
