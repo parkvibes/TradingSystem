@@ -1,11 +1,9 @@
 import io
 from unittest import TestCase
 from unittest.mock import Mock, patch
-import stock_driver
-from stock_broker_application import StockBrokerApplication
-from stock_driver import StockDriver, KiwerDriver
 
 from stock_broker_application import StockBrokerApplication
+from stock_driver import KiwerDriver, NemoDriver
 from stock_driver import StockDriver
 
 
@@ -40,30 +38,34 @@ class TestStockBrokerApp(TestCase):
         self.assertEqual(mock_stdout.getvalue(), "no name login success\n")
 
     def test_buy(self):
-        pass
+        mk = Mock()
+        st = StockBrokerApplication()
+        st.select_stock_broker(mk)
+
+        st.purchase("AAPL", 150, 10)
+        mk.purchase.assert_called_once_with("AAPL", 150, 10)
 
     def test_sell(self):
         driver: StockDriver = Mock()
         app = StockBrokerApplication()
         app.select_stock_broker(driver)
-        stock_code = '12341234'
+        stock_code = "12341234"
         price = 10000
         amount = 100
         self.assertTrue(app.sell(stock_code, price, amount))
 
     def test_get_price_for_Kiwier(self):
         mk = Mock()
-        self.app.select_stock_broker(mk) # KiwerDriver()
+        self.app.select_stock_broker(mk)  # KiwerDriver()
         mk.get_price.return_value = 8888
-        #seed(99)
+        # seed(99)
         self.assertEqual(8888, self.app.get_price(1))
-
 
     def test_get_price_for_Nemo(self):
         mk = Mock()
         self.app.select_stock_broker(mk)  # NemoDriver()
         mk.get_price.return_value = 8888
-        #seed(99)
+
         self.assertEqual(8888, self.app.get_price(1))
 
     def test_buy_nice_timing_ok(self):
