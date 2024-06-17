@@ -26,10 +26,14 @@ class StockBrokerApplication:
         self.__stock_broker.purchase(stock_code, price, amount)
 
     def sell(self,
-             stock_code: int,
+             stock_code: str,
              price: int,
-             amount: int) -> None:
-        self.__stock_broker.sell(stock_code, price, amount)
+             amount: int) -> bool:
+        try:
+            self.__stock_broker.sell(stock_code, price, amount)
+        except:
+            return False
+        return True
 
     def get_price(self,
                   stock_code: int) -> int:

@@ -5,6 +5,10 @@ import stock_driver
 from stock_broker_application import StockBrokerApplication
 from stock_driver import StockDriver, KiwerDriver
 
+from stock_broker_application import StockBrokerApplication
+from stock_driver import StockDriver
+
+
 class TestStockBrokerApp(TestCase):
     def setUp(self):
         super().setUp()
@@ -40,7 +44,13 @@ class TestStockBrokerApp(TestCase):
         pass
 
     def test_sell(self):
-        pass
+        driver: StockDriver = Mock()
+        app = StockBrokerApplication()
+        app.select_stock_broker(driver)
+        stock_code = '12341234'
+        price = 10000
+        amount = 100
+        self.assertTrue(app.sell(stock_code, price, amount))
 
     def test_get_price_for_Kiwier(self):
         mk = Mock()
