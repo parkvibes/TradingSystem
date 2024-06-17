@@ -5,9 +5,6 @@ from nemo_api import NemoAPI
 
 
 class StockDriver(ABC):
-    @abstractmethod
-    def select_stock_brocker(self):
-        pass
 
     @abstractmethod
     def login(self, id, password):
