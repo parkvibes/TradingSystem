@@ -11,6 +11,9 @@ class StockBrokerApplication:
                             stock_broker: StockDriver):
         self.__stock_broker = stock_broker
 
+    def get_broker(self):
+        return self.__stock_broker
+
     def login(self,
               _id: str,
               pw: str) -> None:
