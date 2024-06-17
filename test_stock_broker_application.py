@@ -88,5 +88,18 @@ class TestStockBrokerApp(TestCase):
         self.assertEqual(self.mk.get_price.call_count, 2)
         self.assertEqual(ret, 0)
 
-    def test_sell_nice_timing(self):
-        pass
+    def test_sell_nice_timing_ok(self):
+        self.mk = Mock(repr=KiwerDriver)
+        self.app.select_stock_broker(self.mk)
+        self.mk.get_price.side_effect = [100, 99]
+
+        self.assertEqual(self.app.sell_nice_timing(1, 100), 9900)
+        self.assertEqual(self.mk.get_price.call_count, 2)
+
+    def test_sell_nice_timing_not_ok(self):
+        self.mk = Mock(repr=KiwerDriver)
+        self.app.select_stock_broker(self.mk)
+        self.mk.get_price.side_effect = [100, 100]
+
+        self.assertEqual(self.app.sell_nice_timing(1, 100), 0)
+        self.assertEqual(self.mk.get_price.call_count, 2)
