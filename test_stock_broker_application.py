@@ -1,8 +1,7 @@
 import io
 from unittest import TestCase
 from unittest.mock import Mock, patch
-
-from stock_driver import *
+import stock_driver
 from stock_broker_application import StockBrokerApplication
 from stock_driver import StockDriver, KiwerDriver
 
